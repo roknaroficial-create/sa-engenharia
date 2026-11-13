@@ -1,9 +1,12 @@
+// Checagem do site no PC, tablet e celular: layout, fotos, galerias, menu e eventos de conversão.
+// Uso: AUDIT_BASE_URL=https://sa-engenharia.vercel.app node scripts/responsive-audit.mjs
 import { mkdir } from 'node:fs/promises'
 import { chromium } from 'playwright-core'
 
 const executablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
 const baseURL = process.env.AUDIT_BASE_URL ?? 'http://127.0.0.1:4174'
 const outputDir = new URL('../audit-output/', import.meta.url)
+const out = (name) => new URL(name, outputDir).pathname.slice(1)
 
 await mkdir(outputDir, { recursive: true })
 
@@ -25,6 +28,8 @@ for (const device of [
   page.on('response', (response) => {
     if (response.status() === 404) missingResources.push(response.url())
   })
+  // Nunca abre o WhatsApp de verdade durante o teste.
+  await page.context().route(/wa\.me|whatsapp\.com/, (route) => route.abort())
 
   await page.goto(baseURL, { waitUntil: 'networkidle' })
   await page.evaluate(() => document.fonts.ready)
@@ -34,72 +39,79 @@ for (const device of [
     await page.waitForTimeout(70)
   }
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
-  await page.waitForTimeout(250)
-  await page.screenshot({ path: new URL(`${device.name}.png`, outputDir).pathname.slice(1), fullPage: true })
-  await page.locator('.reference-hero').screenshot({ path: new URL(`${device.name}-hero.png`, outputDir).pathname.slice(1) })
-  await page.locator('.technical-gallery').first().screenshot({ path: new URL(`${device.name}-technical-gallery.png`, outputDir).pathname.slice(1) })
-  await page.locator('.reference-gallery').screenshot({ path: new URL(`${device.name}-gallery.png`, outputDir).pathname.slice(1) })
+  await page.waitForTimeout(300)
+  await page.screenshot({ path: out(`${device.name}.png`), fullPage: true })
+  await page.locator('.hero').screenshot({ path: out(`${device.name}-hero.png`) })
+  for (const section of ['services', 'management', 'portfolio', 'projects', 'contact']) {
+    await page.locator(`.${section}`).screenshot({ path: out(`${device.name}-${section}.png`) })
+  }
 
   const baseChecks = await page.evaluate(() => {
-    const actions = [...document.querySelectorAll('button, a.button')]
+    const actions = [...document.querySelectorAll('a.btn, button, a.option')]
     return {
       title: document.title,
-      language: document.documentElement.lang,
       h1Count: document.querySelectorAll('h1').length,
       horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
-      contactButtonDisabled: document.querySelector('.button--contact')?.hasAttribute('disabled') ?? false,
-      unavailableStatusVisible: Boolean(document.querySelector('#whatsapp-status')),
-      whatsappFloatVisible: Boolean(document.querySelector('.whatsapp-float')),
+      fontsLoaded: document.fonts.check('800 16px Archivo') && document.fonts.check('500 16px "JetBrains Mono"'),
+      whatsappLinks: document.querySelectorAll('a[href^="https://wa.me/"]').length,
       smallestVisibleAction: Math.min(...actions
         .filter((element) => {
           const rect = element.getBoundingClientRect()
           return getComputedStyle(element).display !== 'none' && rect.width > 0 && rect.height > 0
         })
-        .map((element) => element.getBoundingClientRect().height)),
+        .map((element) => Math.round(element.getBoundingClientRect().height))),
     }
   })
 
-  const galleryCards = page.locator('.reference-gallery__card')
-  const galleryCount = await galleryCards.count()
-  const allGalleryImagesLoaded = await galleryCards.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))
-  await galleryCards.first().click()
-  const lightboxOpened = await page.locator('.reference-lightbox').isVisible()
-  await page.getByRole('button', { name: 'Fechar galeria' }).click()
-  const lightboxClosed = await page.locator('.reference-lightbox').count() === 0
-  const gallery = { galleryCount, allGalleryImagesLoaded, lightboxOpened, lightboxClosed }
+  const portfolioItems = page.locator('.bento__item')
+  const portfolioCount = await portfolioItems.count()
+  const portfolioImagesLoaded = await portfolioItems.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))
+  await portfolioItems.first().click()
+  const portfolioLightboxOpened = await page.locator('.lightbox').isVisible()
+  await page.getByRole('button', { name: 'Fechar foto' }).click()
+  const portfolioLightboxClosed = await page.locator('.lightbox').count() === 0
+  await page.getByRole('button', { name: 'Obras e vistorias' }).click()
+  const filteredCount = await portfolioItems.count()
+  await page.getByRole('button', { name: 'Todas' }).click()
+  const portfolio = { portfolioCount, filteredCount, portfolioImagesLoaded, portfolioLightboxOpened, portfolioLightboxClosed }
 
-  const technicalCards = page.locator('.technical-project')
-  const technicalProjectCount = await technicalCards.count()
-  const allTechnicalImagesLoaded = await technicalCards.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))
-  await technicalCards.first().click()
-  const technicalLightboxOpened = await page.locator('.technical-lightbox').isVisible()
-  await page.getByRole('button', { name: /^Fechar projetos/ }).click()
-  const technicalLightboxClosed = await page.locator('.technical-lightbox').count() === 0
-  const technicalGallery = { technicalProjectCount, allTechnicalImagesLoaded, technicalLightboxOpened, technicalLightboxClosed }
+  const shots = page.locator('.shot')
+  const autocadCount = await shots.count()
+  await page.getByRole('tab', { name: 'Visualização 3D' }).click()
+  const threeDCount = await shots.count()
+  for (const image of await shots.locator('img').all()) await image.scrollIntoViewIfNeeded()
+  const shotImagesLoaded = await page.waitForFunction(
+    () => [...document.querySelectorAll('.shot img')].every((image) => image.complete && image.naturalWidth > 0),
+    null,
+    { timeout: 8000 },
+  ).then(() => true, () => false)
+  await shots.first().click()
+  const projectLightboxOpened = await page.locator('.lightbox').isVisible()
+  await page.getByRole('button', { name: 'Fechar foto' }).click()
+  const projects = { autocadCount, threeDCount, shotImagesLoaded, projectLightboxOpened, projectLightboxClosed: await page.locator('.lightbox').count() === 0 }
+
+  await page.getByRole('tab', { name: 'Gerenciamento de obra' }).click()
+  const howSwitched = (await page.locator('.timeline li h3').first().textContent()) === 'Conversa sobre a obra'
 
   let mobileMenu = null
-  if (device.width <= 860) {
+  if (device.width <= 1180) {
     await page.getByRole('button', { name: 'Abrir menu' }).click()
-    await page.waitForTimeout(250)
-    mobileMenu = await page.locator('#reference-main-menu').evaluate((menu) => ({
-      visible: getComputedStyle(menu).opacity === '1',
-      expanded: document.querySelector('.menu-button')?.getAttribute('aria-expanded'),
+    await page.waitForTimeout(300)
+    mobileMenu = await page.locator('#menu-principal').evaluate((menu) => ({
+      visible: getComputedStyle(menu).visibility === 'visible' && getComputedStyle(menu).opacity === '1',
+      expanded: document.querySelector('.header__toggle')?.getAttribute('aria-expanded'),
     }))
-    await page.locator('#reference-main-menu a[href="#vistorias"]').click()
+    await page.locator('#menu-principal a[href="#vistorias"]').click()
     await page.waitForTimeout(350)
     mobileMenu.afterNavigationHash = await page.evaluate(() => location.hash)
-    mobileMenu.bodyLockedAfterNavigation = await page.evaluate(() => document.body.classList.contains('menu-open'))
+    mobileMenu.bodyLockedAfterNavigation = await page.evaluate(() => document.body.classList.contains('is-locked'))
   }
 
-  // Confere os eventos de conversão sem abrir o WhatsApp de verdade.
-  await page.evaluate(() => {
-    window.addEventListener('click', (event) => {
-      if (event.target instanceof Element && event.target.closest('a[href^="https://wa.me/"]')) event.preventDefault()
-    }, true)
-  })
+  // Conversões: cada clique de WhatsApp deve gerar um único whatsapp_open.
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
-  await page.locator('.reference-hero__cta--primary').click()
+  await page.locator('.hero__cta').click()
   await page.locator('.whatsapp-float').click()
+  await page.locator('.option').first().click()
   const analytics = await page.evaluate(() => ({
     gtmLoaded: Boolean(window.google_tag_manager?.['GTM-WNMVBDVM']),
     events: (window.dataLayer ?? [])
@@ -107,7 +119,7 @@ for (const device of [
       .map((entry) => `${entry.event}:${entry.location}`),
   }))
 
-  results.push({ device, ...baseChecks, gallery, technicalGallery, mobileMenu, analytics, missingResources, consoleErrors })
+  results.push({ device, ...baseChecks, portfolio, projects, howSwitched, mobileMenu, analytics, missingResources, consoleErrors })
   await page.close()
 }
 

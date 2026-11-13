@@ -8,10 +8,7 @@ type WhatsAppLinkProps = {
   message?: string
   /** Serviço de interesse, enviado junto no evento. */
   service?: string
-  /**
-   * Evento disparado no clique. O padrão é `whatsapp_open`; o botão principal do topo
-   * continua mandando só `cta_click`, como no site anterior, para não contar conversão em dobro.
-   */
+  /** Evento disparado no clique. O padrão é `whatsapp_open`: um por clique, é o evento de conversão. */
   event?: AnalyticsEvent
   label?: string
   className?: string

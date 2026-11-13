@@ -22,15 +22,15 @@ npm run check
 3. `#vistorias`: tipos de vistoria e laudo, cada um com botão de orçamento.
 4. `#gerenciamento`: o que o gerenciamento inclui.
 5. `#como-funciona`: passo a passo de cada serviço.
-6. Fotos reais de obras e vistorias + `#galeria` (obras entregues).
-7. `#projetos`: projetos e consultoria, com as galerias AutoCAD e 3D.
+6. `#galeria`: fotos reais de obras e vistorias junto com os ambientes entregues, com filtro e foto ampliada.
+7. `#projetos`: projetos e consultoria, com abas AutoCAD e 3D.
 8. Para quem é, sobre, regiões, `#duvidas` (perguntas frequentes) e `#contato`.
 
 Os links âncora acima podem ser usados como URL final de anúncios (ex.: `https://www.engsaeng.com.br/#vistorias`).
 
 ## Configuração principal
 
-Textos, serviços, tipos de vistoria, passo a passo, perguntas frequentes, regiões, imagens e contato ficam centralizados em `src/config.ts`. Os estilos da remodelação ficam em `src/remodel.css` (carregado depois de `src/styles.css`).
+Textos, serviços, tipos de vistoria, passo a passo, perguntas frequentes, regiões, imagens e contato ficam centralizados em `src/config.ts`. Todo o visual fica em `src/site.css` (papel, preto e amarelo de obra; fontes Archivo e JetBrains Mono, carregadas no `index.html`). As seções estão em `src/App.tsx`, com topo, abertura e foto ampliada em `src/components/`.
 
 Por decisão do cliente, o site não mostra nome de responsável técnico, CREA nem avaliações.
 
