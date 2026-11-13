@@ -6,10 +6,18 @@
  * - textos maiores e com mais contraste, para leitura fácil por qualquer público.
  */
 
+/* Cores: o verde do logo (#5e6f5b) entra como cor da marca, no lugar do preto puro. */
 :root {
+  --navy: #22372a;
+  --navy-deep: #17271c;
+  --navy-soft: #2c4334;
+  --cyan: #5e6f5b;
+  --cyan-dark: #45553f;
+  --cyan-light: #cdd7c9;
+  --green: #5e6f5b;
   --text: #2b2b2b;
   --text-soft: #4d4d4d;
-  --surface-alt: #f3f3f3;
+  --surface-alt: #f1f4ef;
 }
 
 /* ---------- Botões ---------- */
@@ -865,4 +873,9 @@
   .contact-cta {
     padding: 28px 22px;
   }
+}
+
+/* Destaque dos títulos sobre fundo escuro: verde claro para manter o contraste. */
+.management__content h2 em {
+  color: #a3b79c;
 }

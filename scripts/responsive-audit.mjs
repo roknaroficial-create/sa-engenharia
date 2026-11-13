@@ -37,7 +37,7 @@ for (const device of [
   await page.waitForTimeout(250)
   await page.screenshot({ path: new URL(`${device.name}.png`, outputDir).pathname.slice(1), fullPage: true })
   await page.locator('.reference-hero').screenshot({ path: new URL(`${device.name}-hero.png`, outputDir).pathname.slice(1) })
-  await page.locator('.technical-gallery').screenshot({ path: new URL(`${device.name}-technical-gallery.png`, outputDir).pathname.slice(1) })
+  await page.locator('.technical-gallery').first().screenshot({ path: new URL(`${device.name}-technical-gallery.png`, outputDir).pathname.slice(1) })
   await page.locator('.reference-gallery').screenshot({ path: new URL(`${device.name}-gallery.png`, outputDir).pathname.slice(1) })
 
   const baseChecks = await page.evaluate(() => {
@@ -73,7 +73,7 @@ for (const device of [
   const allTechnicalImagesLoaded = await technicalCards.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))
   await technicalCards.first().click()
   const technicalLightboxOpened = await page.locator('.technical-lightbox').isVisible()
-  await page.getByRole('button', { name: 'Fechar projetos 3D' }).click()
+  await page.getByRole('button', { name: /^Fechar projetos/ }).click()
   const technicalLightboxClosed = await page.locator('.technical-lightbox').count() === 0
   const technicalGallery = { technicalProjectCount, allTechnicalImagesLoaded, technicalLightboxOpened, technicalLightboxClosed }
 
@@ -85,13 +85,29 @@ for (const device of [
       visible: getComputedStyle(menu).opacity === '1',
       expanded: document.querySelector('.menu-button')?.getAttribute('aria-expanded'),
     }))
-    await page.locator('#reference-main-menu a[href="#servicos"]').click()
+    await page.locator('#reference-main-menu a[href="#vistorias"]').click()
     await page.waitForTimeout(350)
     mobileMenu.afterNavigationHash = await page.evaluate(() => location.hash)
     mobileMenu.bodyLockedAfterNavigation = await page.evaluate(() => document.body.classList.contains('menu-open'))
   }
 
-  results.push({ device, ...baseChecks, gallery, technicalGallery, mobileMenu, missingResources, consoleErrors })
+  // Confere os eventos de conversão sem abrir o WhatsApp de verdade.
+  await page.evaluate(() => {
+    window.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a[href^="https://wa.me/"]')) event.preventDefault()
+    }, true)
+  })
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+  await page.locator('.reference-hero__cta--primary').click()
+  await page.locator('.whatsapp-float').click()
+  const analytics = await page.evaluate(() => ({
+    gtmLoaded: Boolean(window.google_tag_manager?.['GTM-WNMVBDVM']),
+    events: (window.dataLayer ?? [])
+      .filter((entry) => entry.event === 'cta_click' || entry.event === 'whatsapp_open')
+      .map((entry) => `${entry.event}:${entry.location}`),
+  }))
+
+  results.push({ device, ...baseChecks, gallery, technicalGallery, mobileMenu, analytics, missingResources, consoleErrors })
   await page.close()
 }
 

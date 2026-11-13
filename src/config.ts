@@ -184,10 +184,10 @@ export const siteConfig = {
   images: {
     logo: '/images/logo-sa-transparent.png',
     hero: {
-      src: '/images/projetos/terraco-panoramico.jpg',
+      src: '/images/projetos/sala-varanda-urbana.jpg',
       width: 1086,
       height: 1448,
-      alt: 'Terraço finalizado com vista panorâmica e acabamentos em madeira e pedra',
+      alt: 'Sala de apartamento novo, vazia e pronta para a entrega das chaves',
     },
     fieldPhotos: [
       {
