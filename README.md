@@ -48,9 +48,9 @@ As imagens ficam em `public/images`. As fotos reais de obra recortadas (sem as b
 
 ## Analytics
 
-O Google Tag Manager (`GTM-WNMVBDVM`) está em `index.html`. Os eventos continuam com os mesmos nomes do site anterior:
+O Google Tag Manager (`GTM-WNMVBDVM`) está em `index.html`. Em nov/2026 o container só tinha a tag do Google Ads (`AW-18509057331`), o remarketing e o vinculador de conversões, sem nenhum acionador nos eventos abaixo. Por isso os eventos puderam ser organizados assim:
 
-- `whatsapp_open` — clique em qualquer botão de WhatsApp. Vai com `location` (onde o botão está) e, quando houver, `service` (serviço escolhido).
-- `cta_click` — botão principal do topo (como antes, ele não dispara `whatsapp_open`, para não contar conversão em dobro) e atalhos do topo para os dois serviços.
+- `whatsapp_open` — **um por clique** em qualquer botão de WhatsApp, inclusive o botão principal do topo. Vai com `location` (onde o botão está), `label` (texto do botão, quando houver) e `service` (serviço escolhido, quando houver). É o evento para usar como conversão.
+- `cta_click` — atalhos do topo que só rolam a página até Vistorias ou Gerenciamento. Não abre WhatsApp e não deve contar como conversão.
 
 `whatsapp_open` significa apenas abertura da conversa; não representa mensagem enviada, lead confirmado ou venda.

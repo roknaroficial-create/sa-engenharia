@@ -50,7 +50,6 @@ export function ReferenceHero() {
             <WhatsAppLink
               className="reference-hero__cta reference-hero__cta--primary"
               location="hero"
-              event="cta_click"
               label="Pedir orçamento no WhatsApp"
             >
               Pedir orçamento no WhatsApp
