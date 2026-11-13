@@ -1,0 +1,361 @@
+export const siteConfig = {
+  company: 'S.A Engenharia',
+  yearsInBusiness: 4,
+  whatsappNumber: '5511927193130',
+  whatsappDisplay: '(11) 92719-3130',
+  defaultWhatsappMessage: 'Olá! Vim pelo site da S.A Engenharia e gostaria de um orçamento.',
+  navigation: [
+    { label: 'Vistorias', href: '#vistorias' },
+    { label: 'Gerenciamento', href: '#gerenciamento' },
+    { label: 'Como funciona', href: '#como-funciona' },
+    { label: 'Obras', href: '#galeria' },
+    { label: 'Projetos', href: '#projetos' },
+    { label: 'Dúvidas', href: '#duvidas' },
+    { label: 'Contato', href: '#contato' },
+  ],
+  regions: ['São Paulo capital', 'Grande São Paulo', 'Uberaba/MG'],
+
+  // Os dois serviços principais, com o mesmo destaque.
+  pillars: [
+    {
+      id: 'vistorias',
+      number: '01',
+      title: 'Vistorias e laudos',
+      forWho: 'Para quem vai receber, comprar, vender ou alugar um imóvel.',
+      description:
+        'Nossa equipe vai até o imóvel, confere tudo pessoalmente e entrega um laudo técnico dizendo o que está certo e o que precisa ser corrigido.',
+      items: [
+        'Imóvel novo (entrega de chaves)',
+        'Imóvel usado ou antigo',
+        'Imobiliárias e empresas',
+        'Laudos para banco e prefeitura',
+      ],
+      cta: 'Quero uma vistoria',
+      message: 'Olá! Vim pelo site e quero um orçamento de vistoria de imóvel.',
+      image: {
+        src: '/images/obras/vistoria-imovel-novo.jpg',
+        width: 754,
+        height: 1200,
+        alt: 'Apartamento novo com piso amadeirado durante vistoria de entrega',
+      },
+    },
+    {
+      id: 'gerenciamento',
+      number: '02',
+      title: 'Gerenciamento de obras',
+      forWho: 'Para quem vai construir ou reformar e não quer ter dor de cabeça.',
+      description:
+        'Cuidamos da sua obra como se fosse nossa: visitas, relatórios e controle de prazo, custo e qualidade do começo ao fim.',
+      items: [
+        'Obra nova, do zero',
+        'Reformas',
+        'Prédios',
+        'Lojas e espaços comerciais',
+      ],
+      cta: 'Quero gerenciar minha obra',
+      message: 'Olá! Vim pelo site e quero um orçamento de gerenciamento de obra.',
+      image: {
+        src: '/images/obras/obra-gerenciamento-drywall.jpg',
+        width: 1200,
+        height: 1169,
+        alt: 'Obra comercial em andamento com paredes de drywall acompanhada pela S.A Engenharia',
+      },
+    },
+  ],
+
+  inspectionTypes: [
+    {
+      tag: 'Entrega de chaves',
+      title: 'Vistoria de imóvel novo',
+      text: 'Antes de receber as chaves, conferimos acabamentos, instalações e possíveis defeitos. Assim você pede para a construtora corrigir antes de se mudar.',
+      message: 'Olá! Vim pelo site e quero uma vistoria de imóvel novo (entrega de chaves).',
+    },
+    {
+      tag: 'Compra, venda ou aluguel',
+      title: 'Vistoria de imóvel usado',
+      text: 'Antes de fechar negócio, saiba o estado real do imóvel. Você decide com segurança e evita surpresas depois.',
+      message: 'Olá! Vim pelo site e quero uma vistoria de imóvel usado.',
+    },
+    {
+      tag: 'Banco, prefeitura e outros',
+      title: 'Laudos técnicos',
+      text: 'Laudos de engenharia para atender exigências de bancos, prefeituras e outros órgãos.',
+      message: 'Olá! Vim pelo site e preciso de um laudo técnico.',
+    },
+    {
+      tag: 'Imobiliárias e empresas',
+      title: 'Vistorias para empresas',
+      text: 'Atendimento para imobiliárias, empresas e condomínios que precisam de vistorias com o mesmo padrão técnico em todos os imóveis.',
+      message: 'Olá! Vim pelo site e represento uma empresa/imobiliária. Quero falar sobre vistorias.',
+    },
+  ],
+
+  managementScope: [
+    { title: 'Levantamento de quantidades', text: 'Quanto material e serviço a obra vai precisar, para comprar certo.' },
+    { title: 'Controle de custos', text: 'Acompanhamento dos gastos para evitar surpresas no orçamento.' },
+    { title: 'Controle de prazo', text: 'Cada etapa acompanhada para a obra andar no tempo combinado.' },
+    { title: 'Controle de qualidade', text: 'Conferência do que está sendo feito, para corrigir na hora certa.' },
+    { title: 'Contratação', text: 'Apoio na escolha e contratação de mão de obra e fornecedores.' },
+    { title: 'Visitas e relatórios', text: 'O que foi feito, o que falta e qual é o próximo passo.' },
+  ],
+
+  steps: {
+    inspection: [
+      { title: 'Você chama no WhatsApp', text: 'Conte qual é o imóvel, onde fica e o que você precisa.' },
+      { title: 'Orçamento e agendamento', text: 'Passamos o valor e combinamos o melhor dia.' },
+      { title: 'Vistoria no local', text: 'A equipe vai até o imóvel e confere tudo pessoalmente.' },
+      { title: 'Laudo na sua mão', text: 'Você recebe o laudo com o que foi encontrado e o que precisa ser corrigido.' },
+    ],
+    management: [
+      { title: 'Conversa sobre a obra', text: 'Você conta o que vai construir ou reformar.' },
+      { title: 'Proposta e contrato', text: 'O valor é definido pelo tamanho, prazo e escopo da obra.' },
+      { title: 'Acompanhamento', text: 'Visitas na obra e relatórios durante toda a execução.' },
+      { title: 'Obra entregue', text: 'Você recebe o resultado final sem se preocupar com o dia a dia.' },
+    ],
+  },
+
+  otherServices: [
+    {
+      title: 'Projetos em AutoCAD e 3D',
+      text: 'Plantas, cortes, fachadas e imagens 3D para ver o espaço antes de construir.',
+      message: 'Olá! Vim pelo site e quero um orçamento de projeto.',
+    },
+    {
+      title: 'Consultoria de engenharia',
+      text: 'Orientação técnica para tirar dúvidas e decidir com segurança sobre o seu imóvel ou obra.',
+      message: 'Olá! Vim pelo site e quero uma consultoria de engenharia.',
+    },
+  ],
+
+  audiences: [
+    { name: 'Quem vai receber um imóvel novo', need: 'Vistoria antes de pegar as chaves, para a construtora corrigir o que for preciso.' },
+    { name: 'Quem vai comprar ou alugar', need: 'Saber o estado real do imóvel antes de fechar negócio.' },
+    { name: 'Quem vai construir ou reformar', need: 'Gerenciamento da obra do começo ao fim, sem dor de cabeça.' },
+    { name: 'Imobiliárias', need: 'Vistorias e laudos para os imóveis da carteira.' },
+    { name: 'Empresas e comércios', need: 'Vistorias, laudos e gerenciamento de obras de lojas e espaços comerciais.' },
+    { name: 'Condomínios e escritórios de arquitetura', need: 'Apoio de engenharia para obras e imóveis.' },
+  ],
+
+  values: ['Experiência', 'Qualidade de entrega', 'Relacionamento', 'Responsabilidade'],
+
+  faqs: [
+    {
+      question: 'Quanto custa uma vistoria ou o gerenciamento de obra?',
+      answer: 'Depende do tamanho do imóvel ou da obra, do prazo e do que precisa ser feito. Mande os detalhes pelo WhatsApp e passamos o orçamento.',
+    },
+    {
+      question: 'Quais tipos de vistoria vocês fazem?',
+      answer: 'Vistoria de imóvel novo (entrega de chaves), de imóvel usado ou antigo, vistorias para imobiliárias e empresas e laudos técnicos para bancos, prefeituras e outros órgãos.',
+    },
+    {
+      question: 'Quando devo fazer a vistoria do imóvel novo?',
+      answer: 'O ideal é antes de receber as chaves. Assim, o que for encontrado pode ser corrigido pela construtora antes da mudança.',
+    },
+    {
+      question: 'O que o gerenciamento de obra inclui?',
+      answer: 'Levantamento de quantidades, controle de qualidade, de custos e de prazo, apoio na contratação e visitas à obra com relatório do andamento.',
+    },
+    {
+      question: 'Posso fazer a vistoria e depois contratar o gerenciamento?',
+      answer: 'Pode. É comum fazer a vistoria do imóvel e, depois, contratar o gerenciamento da reforma com a mesma equipe, que já conhece o imóvel.',
+    },
+    {
+      question: 'O atendimento é presencial? Onde vocês atendem?',
+      answer: 'Sim, o atendimento é presencial em São Paulo capital, na Grande São Paulo e em Uberaba/MG.',
+    },
+    {
+      question: 'Vocês atendem imobiliárias e empresas?',
+      answer: 'Sim. Atendemos pessoas físicas, imobiliárias, empresas, condomínios e escritórios de arquitetura.',
+    },
+    {
+      question: 'Como peço um orçamento?',
+      answer: 'Toque em qualquer botão de WhatsApp do site e diga qual serviço você precisa, a cidade e o tipo de imóvel ou obra.',
+    },
+  ],
+
+  contactOptions: [
+    { label: 'Vistoria de imóvel novo', message: 'Olá! Vim pelo site e quero uma vistoria de imóvel novo (entrega de chaves).' },
+    { label: 'Vistoria de imóvel usado', message: 'Olá! Vim pelo site e quero uma vistoria de imóvel usado.' },
+    { label: 'Laudo técnico', message: 'Olá! Vim pelo site e preciso de um laudo técnico.' },
+    { label: 'Gerenciamento de obra', message: 'Olá! Vim pelo site e quero um orçamento de gerenciamento de obra.' },
+    { label: 'Projeto ou consultoria', message: 'Olá! Vim pelo site e quero falar sobre projeto ou consultoria.' },
+  ],
+
+  images: {
+    logo: '/images/logo-sa-transparent.png',
+    hero: {
+      src: '/images/projetos/terraco-panoramico.jpg',
+      width: 1086,
+      height: 1448,
+      alt: 'Terraço finalizado com vista panorâmica e acabamentos em madeira e pedra',
+    },
+    fieldPhotos: [
+      {
+        src: '/images/obras/obra-alvenaria-web.jpg',
+        width: 931,
+        height: 1142,
+        alt: 'Parede de blocos de concreto sendo levantada em obra acompanhada',
+        label: 'Alvenaria em execução',
+        category: 'Gerenciamento',
+      },
+      {
+        src: '/images/obras/obra-instalacoes-web.jpg',
+        width: 859,
+        height: 849,
+        alt: 'Estrutura de drywall e tubulações hidráulicas em obra em andamento',
+        label: 'Instalações e estrutura',
+        category: 'Gerenciamento',
+      },
+      {
+        src: '/images/vistoria-imovel.jpg',
+        width: 1000,
+        height: 1238,
+        alt: 'Box de banheiro com revestimento branco conferido em vistoria',
+        label: 'Banheiro conferido',
+        category: 'Vistoria',
+      },
+      {
+        src: '/images/obras/obra-gerenciamento-drywall.jpg',
+        width: 1200,
+        height: 1169,
+        alt: 'Obra comercial com divisórias de drywall em fase de acabamento',
+        label: 'Obra comercial',
+        category: 'Gerenciamento',
+      },
+    ],
+    gallery: [
+      {
+        src: '/images/projetos/cozinha-ilha.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Cozinha contemporânea finalizada com ilha central em pedra clara e marcenaria verde',
+        label: 'Cozinha contemporânea',
+        category: 'Interiores',
+      },
+      {
+        src: '/images/projetos/terraco-panoramico.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Terraço de cobertura finalizado com vista panorâmica, pergolado e churrasqueira',
+        label: 'Terraço panorâmico',
+        category: 'Área externa',
+      },
+      {
+        src: '/images/projetos/suite-janela-canto.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Suíte luminosa finalizada com piso de madeira e ampla janela de canto',
+        label: 'Suíte com luz natural',
+        category: 'Interiores',
+      },
+      {
+        src: '/images/projetos/sala-varanda-churrasqueira.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Sala integrada à varanda com churrasqueira e vista urbana',
+        label: 'Sala e varanda integradas',
+        category: 'Acabamentos',
+      },
+      {
+        src: '/images/projetos/sala-varanda-urbana.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Sala finalizada com piso amadeirado e varanda voltada para a cidade',
+        label: 'Sala com varanda urbana',
+        category: 'Acabamentos',
+      },
+      {
+        src: '/images/projetos/banheiro-cinza.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Banheiro compacto finalizado com revestimento cinza e bancada em granito preto',
+        label: 'Banheiro em tons de cinza',
+        category: 'Detalhes',
+      },
+      {
+        src: '/images/projetos/banheiro-marmorizado.jpg',
+        width: 1086,
+        height: 1448,
+        alt: 'Banheiro finalizado com porcelanato marmorizado e bancada clara',
+        label: 'Banheiro marmorizado',
+        category: 'Detalhes',
+      },
+    ],
+    autocadProjects: [
+      {
+        src: '/images/autocad/implantacao.png',
+        width: 768,
+        height: 508,
+        alt: 'Projeto de implantação em AutoCAD com planta do terreno e indicação dos elementos construtivos',
+        label: 'Implantação',
+        category: 'AutoCAD',
+        description: 'Como a construção fica posicionada no terreno.',
+      },
+      {
+        src: '/images/autocad/planta-terreo.png',
+        width: 768,
+        height: 516,
+        alt: 'Planta técnica do pavimento térreo desenvolvida em AutoCAD',
+        label: 'Planta do térreo',
+        category: 'AutoCAD',
+        description: 'Distribuição dos cômodos, acessos e circulação do térreo.',
+      },
+      {
+        src: '/images/autocad/planta-superior.png',
+        width: 768,
+        height: 516,
+        alt: 'Planta técnica do pavimento superior desenvolvida em AutoCAD',
+        label: 'Planta superior',
+        category: 'AutoCAD',
+        description: 'Organização e medidas do andar de cima.',
+      },
+      {
+        src: '/images/autocad/corte-fachada.png',
+        width: 768,
+        height: 508,
+        alt: 'Prancha técnica com corte e fachada da edificação desenvolvida em AutoCAD',
+        label: 'Corte e fachada',
+        category: 'AutoCAD',
+        description: 'Alturas, níveis e a aparência externa da construção.',
+      },
+    ],
+    technicalProjects: [
+      {
+        src: '/images/projetos-3d/apartamento-modelo-3d.jpg',
+        width: 1448,
+        height: 1086,
+        alt: 'Modelo tridimensional de apartamento completo com ambientes, mobiliário e varanda',
+        label: 'Apartamento completo',
+        category: 'Modelo 3D',
+        description: 'O apartamento inteiro em 3D, com móveis e circulação.',
+      },
+      {
+        src: '/images/projetos-3d/cozinha-perspectiva-3d.jpg',
+        width: 1448,
+        height: 1086,
+        alt: 'Perspectiva tridimensional de cozinha planejada com ilha central',
+        label: 'Cozinha planejada',
+        category: 'Perspectiva 3D',
+        description: 'Layout, marcenaria e equipamentos antes de executar.',
+      },
+      {
+        src: '/images/projetos-3d/banheiro-modelo-3d.jpg',
+        width: 1448,
+        height: 1086,
+        alt: 'Modelo tridimensional de banheiro com bancada, box e detalhamento de revestimentos',
+        label: 'Banheiro detalhado',
+        category: 'Modelo 3D',
+        description: 'Louças, metais e revestimentos definidos com antecedência.',
+      },
+      {
+        src: '/images/projetos-3d/sala-varanda-estudo-3d.jpg',
+        width: 1448,
+        height: 1086,
+        alt: 'Estudo tridimensional de sala integrada à varanda gourmet',
+        label: 'Sala e varanda integradas',
+        category: 'Estudo 3D',
+        description: 'Integração da sala com a varanda para decidir antes da obra.',
+      },
+    ],
+  },
+} as const
